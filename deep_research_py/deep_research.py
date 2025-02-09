@@ -22,7 +22,7 @@ class SerpQuery:
     research_goal: str
 
 # Increase this if you have higher API rate limits
-CONCURRENCY_LIMIT = 2
+CONCURRENCY_LIMIT = 1
 
 class Firecrawl:
     """Simple wrapper for Firecrawl SDK."""
@@ -42,6 +42,9 @@ class Firecrawl:
                     query=query,
                 )
             )
+            
+            # Add delay after request
+            await asyncio.sleep(2)
             
             # Handle the response format from the SDK
             if isinstance(response, dict) and 'data' in response:
@@ -319,4 +322,4 @@ async def deep_research(
     return {
         "learnings": all_learnings,
         "visited_urls": all_urls
-    } 
+    }
